@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Samaikya</title>
+    
+</head>
+<body>
+    <div id="div">
+        <h1 id="h1"></h1>
+        <h2 id="h2"></h2>
+        <button onclick="fetchdata()">click</button>
+    </div>
+    <script>
+        var div=document.getElementById("div")
+        var h1=document.getElementById("h1")
+        var h2=document.getElementById("h2")
+
+        async function fetchdata(){
+            try{
+                var response=await fetch('http://fakestoreapi.com/products')
+                if(!response.ok){
+                    h2.innertext='error in the api'
+                }
+                var data=await response.JSON()
+                data.forEach((item)=>{
+                    var id = document.createElement("p")
+                    var title = document.createElement("h4")
+                    var price = document.createElement("h4")
+                    var catergory = document.createElement("p")
+                    var image = document.createElement("img")
+                    id.textContent = item.id
+                    title.textContent = item.title
+                    price.textContent = item.price
+                    image.src = item.image
+                    div.appendChild(id)
+                    div.appendChild(title)
+                    div.appendChild(price)
+                    div.appendChild(image)
+                })
+            }catch{
+                h2.textcontent='invalid response'
+            }
+        }
+    </script>
+   
+</body>
+</html>
